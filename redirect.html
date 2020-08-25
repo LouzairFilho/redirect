@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #e0f2f1;
+      }
+      h1 {
+        color: #616161;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      section {
+        margin: 15px;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+          0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 0 0 2px 2px;
+        background-color: #fff;
+        width: 70vw;
+      }
+    </style>
+    <title>Redirect</title>
+  </head>
+  <body>
+    <section>
+      <h1>Redirect local host</h1>
+
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="url" class="validate" type="text" />
+              <label class="active" for="url">Url Original</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="segOriginal" class="validate" type="text" />
+              <label class="active" for="segOriginal">Segmento a remover</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="segReplace" class="validate" type="text" />
+              <label class="active" for="segReplace">Segmento a inserir</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="result" class="validate" readonly />
+              <label class="active" for="result">Resultado</label>
+            </div>
+          </div>
+
+          <button class="btn waves-effect waves-light"  id="gerar">Gerar Url
+            <i class="material-icons right">send</i>
+          </button>
+          <button class="btn waves-effect waves-light"  id="redirect">Abrir nova Aba
+            <i class="material-icons right">exit_to_app</i>
+          </button>
+        </form>
+      </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // $("#url").val('view-source:http://static-contrato-dev.preventsenior.com.br/#/credenciamento/agrupadorMaterial/lista?ticket=R6zrUc5fSdmnC2umBZ8rCYuoDJ5yCJKvE3CsC3SrC3asCNmnDZ0tE3SrD3Km&menuAcesso=5252');
+            // $("#segOriginal").val('view-source:http://static-contrato-dev.preventsenior.com.br');
+            $("#segReplace").val('http://localhost:4200');
+            M.updateTextFields();
+
+        });
+        $("#gerar").click(function(e) {   
+            e.preventDefault();
+
+            const ulrOrgiginal =  $("#url").val()
+            const segOriginal =  $("#segOriginal").val()
+            const segRepalce =  $("#segReplace").val()
+            let resultado = ulrOrgiginal.replace(segOriginal,segRepalce);
+            $("#result").val(resultado);
+
+            M.updateTextFields();
+        });
+
+        $("#redirect").click(function(e) {   
+            e.preventDefault();
+            const url = $("#result").val();
+            window.open(url);
+        });
+
+    </script>
+  </body>
+</html>
